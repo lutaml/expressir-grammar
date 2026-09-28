@@ -2,9 +2,9 @@
 
 ## Phase 0 — DONE (2026-09-28)
 
-- `grammars/express.pg` ported from Expressir's Parsanol-DSL grammar
+- `grammars/express.parg` ported from Expressir's Parsanol-DSL grammar
   (249 rules + 123 expanded keyword rules) via
-  `scripts/dsl_to_pg.rb`.
+  `scripts/dsl_to_parg.rb`.
 - `artifacts/express.json` compiles green (deterministic checksum
   `sha256:1e49bc96…`).
 - Tree parity vs the DSL grammar: 15/15 parseable `spec/syntax`

@@ -22,7 +22,7 @@ REJECTS = [
   "SCHEMA a; TYPE t; END_TYPE; END_SCHEMA;", # unterminated type body
 ].freeze
 
-artifact = Parsanol::PG::Artifact.load(ARTIFACT)
+artifact = Parsanol::PARG::Artifact.load(ARTIFACT)
 entry = artifact.entries.first
 
 cases = []

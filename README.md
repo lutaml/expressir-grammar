@@ -10,7 +10,7 @@ never re-transcribe the grammar.
 
 ## Layout
 
-- `grammars/express.pg` — the grammar source (SSOT). Ported 1:1 from
+- `grammars/express.parg` — the grammar source (SSOT). Ported 1:1 from
   Expressir's Parsanol-DSL grammar; the `tKEYWORD` rules and
   `anyKeyword` are the DSL's `KEYWORDS.each` / `inject(:|)` loops
   expanded.
@@ -19,7 +19,7 @@ never re-transcribe the grammar.
 - `corpora/express/corpus.json` — frozen conformance cases (inputs +
   parsanol-shape trees, accept and reject), pinned to the artifact
   checksum by `artifact_checksum`.
-- `scripts/dsl_to_pg.rb` — the transliterator that produced the .pg
+- `scripts/dsl_to_parg.rb` — the transliterator that produced the .parg
   from Expressir's DSL grammar (kept for provenance and re-runs).
 - `scripts/bake_corpus.rb` — regenerates the corpus from the current
   artifact.

@@ -17,8 +17,8 @@
 require "json"
 require "strscan"
 
-SRC = ARGV[0] or abort "usage: dsl_to_pg.rb <parser.rb> <out.pg>"
-OUT = ARGV[1] or abort "usage: dsl_to_pg.rb <parser.rb> <out.pg>"
+SRC = ARGV[0] or abort "usage: dsl_to_parg.rb <parser.rb> <out.parg>"
+OUT = ARGV[1] or abort "usage: dsl_to_parg.rb <parser.rb> <out.parg>"
 src = File.read(SRC)
 
 # ---- extract KEYWORDS and expand the two loop-generated constructs ----

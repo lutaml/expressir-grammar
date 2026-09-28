@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Conformance gate: recompile the .pg source, verify the corpus is
+# Conformance gate: recompile the .parg source, verify the corpus is
 # pinned to that artifact, then replay every case — accept trees must
 # match byte-for-byte (JSON), rejects must still be rejected.
 
@@ -9,7 +9,7 @@ require "json"
 
 ROOT = File.expand_path("..", __dir__)
 ARTIFACT = File.join(ROOT, "artifacts/express.json")
-GRAMMAR = File.join(ROOT, "grammars/express.pg")
+GRAMMAR = File.join(ROOT, "grammars/express.parg")
 CORPUS = File.join(ROOT, "corpora/express/corpus.json")
 
 parsanol_ruby = ENV["PARSANOL_RUBY"] || File.join(Dir.home, "src/parsanol/parsanol-ruby")
@@ -17,7 +17,7 @@ $LOAD_PATH.unshift(File.join(parsanol_ruby, "lib"))
 require "parsanol"
 system("ruby", "-I", File.join(parsanol_ruby, "lib"),
        File.join(parsanol_ruby, "exe/parsanol"),
-       "pg", "compile", GRAMMAR, "-o", ARTIFACT) or abort "compile failed"
+       "parg", "compile", GRAMMAR, "-o", ARTIFACT) or abort "compile failed"
 
 corpus = JSON.parse(File.read(CORPUS))
 baked = JSON.parse(File.read(ARTIFACT))
@@ -26,7 +26,7 @@ if corpus["artifact_checksum"] != baked["checksum"]
         "grammar compiles to #{baked['checksum'][0, 16]} — rebake the corpus"
 end
 
-artifact = Parsanol::PG::Artifact.from_json(File.read(ARTIFACT))
+artifact = Parsanol::PARG::Artifact.from_json(File.read(ARTIFACT))
 entry = corpus["entry"]
 failed = 0
 
