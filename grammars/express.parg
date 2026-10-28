@@ -4,7 +4,7 @@
 # anyKeyword are the KEYWORDS.each / inject(:|) loops expanded.
 # Root: syntax (the DSL's root(:syntax)).
 
-grammar Express version "0.1.0" {
+grammar Express version "0.1.0" edition 2 {
 
   # character classes shared by the keyword boundary predicate
   ident_char = %x41-5A / %x61-7A / %x30-39 / %x5F
@@ -54,12 +54,11 @@ grammar Express version "0.1.0" {
   delim = spaces ((";") as delim)
   deriveClause = ((tDERIVE (1*(derivedAttr)) as derivedAttr)) as deriveClause
   derivedAttr = ((((((attributeDecl op_colon) parameterType) op_decl) expression) op_delim)) as derivedAttr
-  digit = (%x30-39)
-  digits = (digit *(digit))
+  digits = 1*(%x30-39)
   domainRule = (([ (ruleLabelId op_colon) ] expression)) as domainRule
   element = ((expression [ (op_colon repetition) ])) as element
   embeddedRemark = (("(*)" / (("(*" *((!"*)" (embeddedRemark / any_char)))) "*)"))) as embeddedRemark
-  encodedCharacter = (((octet octet) octet) octet)
+  encodedCharacter = 8*(%x30-39 / %x61-66 / %x41-46)
   encodedStringLiteral = (spaces (((("\"" 1*(encodedCharacter)) "\"")) as str)) as encodedStringLiteral
   entityBody = ((((((*(explicitAttr)) as explicitAttr [deriveClause]) [inverseClause]) [uniqueClause]) [whereClause])) as entityBody
   entityConstructor = ((((entityRef op_leftparen) [((expression *(op_comma expression))) as listOf_expression]) op_rightparen)) as entityConstructor
@@ -94,7 +93,6 @@ grammar Express version "0.1.0" {
   genericEntityType = ((tGENERIC_ENTITY [ (op_colon typeLabel) ])) as genericEntityType
   genericType = ((tGENERIC [ (op_colon typeLabel) ])) as genericType
   groupQualifier = ((op_double_backslash entityRef)) as groupQualifier
-  hexDigit = (%x30-39 / %x61-66 / %x41-46)
   ifStmtElseStatements = ((1*(stmt)) as stmt) as ifStmtElseStatements
   ifStmtStatements = ((1*(stmt)) as stmt) as ifStmtStatements
   ifStmt = (((((((tIF logicalExpression) tTHEN) ifStmtStatements) [ (tELSE ifStmtElseStatements) ]) tEND_IF) op_delim)) as ifStmt
@@ -130,7 +128,6 @@ grammar Express version "0.1.0" {
   nullStmt = (op_delim) as nullStmt
   numberType = (tNUMBER) as numberType
   numericExpression = (simpleExpression) as numericExpression
-  octet = (hexDigit hexDigit)
   oneOf = ((((tONEOF op_leftparen) ((supertypeExpression *(op_comma supertypeExpression))) as listOf_supertypeExpression) op_rightparen)) as oneOf
   op_asterisk = (spaces ("*" as str)) as op_asterisk
   op_colon = (spaces (":" as str)) as op_colon
